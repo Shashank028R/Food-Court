@@ -85,18 +85,24 @@ export const CheckoutModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-charcoal/60 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-charcoal/65 backdrop-blur-xs transition-opacity"
         onClick={handleClose}
       />
 
-      <div className="relative bg-surface rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-elevated border border-soft-border z-10 animate-scale-in text-left">
+      {/* Modal / Bottom Sheet on mobile */}
+      <div className="relative bg-surface rounded-t-3xl sm:rounded-2xl max-w-xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-8 shadow-elevated border-t sm:border border-soft-border z-10 animate-slide-up sm:animate-scale-in text-left">
+        {/* Mobile Pull Bar */}
+        <div className="sm:hidden flex justify-center pb-2">
+          <div className="w-10 h-1 rounded-full bg-soft-border" />
+        </div>
+
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-warm-gray hover:text-charcoal hover:bg-base transition-colors"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-lg text-warm-gray hover:text-charcoal hover:bg-base transition-colors"
           aria-label="Close checkout"
         >
           <X className="w-5 h-5" />
@@ -104,13 +110,13 @@ export const CheckoutModal = () => {
 
         {completedOrder ? (
           /* Order Confirmation Screen */
-          <div className="text-center py-6 space-y-5">
-            <div className="w-16 h-16 rounded-full bg-olive/15 border border-olive/30 flex items-center justify-center mx-auto text-olive">
-              <CheckCircle className="w-8 h-8" />
+          <div className="text-center py-4 sm:py-6 space-y-4 sm:space-y-5">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-olive/15 border border-olive/30 flex items-center justify-center mx-auto text-olive">
+              <CheckCircle className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-widest text-olive font-semibold block mb-1">
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest text-olive font-semibold block mb-1">
                 Order Confirmed
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-medium text-charcoal">
@@ -122,21 +128,21 @@ export const CheckoutModal = () => {
             </div>
 
             {/* Summary card */}
-            <div className="bg-base rounded-xl p-4 border border-soft-border text-left text-xs space-y-2.5">
+            <div className="bg-base rounded-xl p-3.5 sm:p-4 border border-soft-border text-left text-xs space-y-2">
               <div className="flex justify-between font-medium text-charcoal">
-                <span>Total Amount Paid</span>
+                <span>Total Paid</span>
                 <span className="font-serif font-bold text-terracotta text-sm">
                   ${completedOrder.totalPrice.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between text-warm-gray">
-                <span>Delivery Address</span>
-                <span className="text-charcoal text-right max-w-[220px] truncate">
+                <span>Delivery To</span>
+                <span className="text-charcoal text-right max-w-[200px] truncate">
                   {completedOrder.deliveryAddress}
                 </span>
               </div>
               <div className="flex justify-between text-warm-gray">
-                <span>Contact Phone</span>
+                <span>Phone</span>
                 <span className="text-charcoal">{completedOrder.phone}</span>
               </div>
               <div className="flex justify-between text-warm-gray">
@@ -145,13 +151,9 @@ export const CheckoutModal = () => {
               </div>
             </div>
 
-            <p className="text-xs text-warm-gray font-light">
-              Our culinary team is preparing your selection with the finest seasonal ingredients.
-            </p>
-
             <button
               onClick={handleClose}
-              className="w-full inline-flex items-center justify-center py-3 px-6 rounded-lg bg-terracotta hover:bg-terracotta-hover text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
+              className="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-terracotta hover:bg-terracotta-hover active:scale-98 text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm min-h-[46px]"
             >
               Return to Dining
             </button>
@@ -159,25 +161,27 @@ export const CheckoutModal = () => {
         ) : (
           /* Checkout Form */
           <div>
-            <div className="mb-6">
-              <span className="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">
+            <div className="mb-4 sm:mb-6">
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">
                 Final Step
               </span>
-              <h2 className="font-serif text-2xl font-medium text-charcoal">Order & Delivery Details</h2>
+              <h2 className="font-serif text-xl sm:text-2xl font-medium text-charcoal">
+                Order & Delivery Details
+              </h2>
             </div>
 
             {!user ? (
-              <div className="mb-6 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-left">
+              <div className="mb-5 p-3.5 sm:p-4 rounded-xl bg-amber-50 border border-amber-200 text-left">
                 <div className="flex items-start gap-3">
                   <ShieldAlert className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
                   <div>
                     <h4 className="text-xs font-semibold text-amber-900">Sign in to complete order</h4>
                     <p className="text-xs text-amber-800/90 mt-0.5 leading-relaxed">
-                      Signing in allows us to save your address for seamless re-ordering and kitchen updates.
+                      Signing in allows us to save your address for seamless re-ordering.
                     </p>
                     <a
                       href="/login?redirect=checkout"
-                      className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-terracotta hover:underline"
+                      className="inline-flex items-center gap-1.5 mt-2.5 text-xs font-semibold text-terracotta hover:underline"
                     >
                       <span>Sign In or Create Account</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -186,15 +190,15 @@ export const CheckoutModal = () => {
                 </div>
               </div>
             ) : (
-              <div className="mb-4 text-xs text-warm-gray bg-base p-2.5 rounded-lg border border-soft-border flex items-center justify-between">
+              <div className="mb-3.5 text-xs text-warm-gray bg-base p-2.5 rounded-lg border border-soft-border flex items-center justify-between">
                 <span>
-                  Ordering as: <strong className="text-charcoal">{user.name}</strong> ({user.email})
+                  Ordering as: <strong className="text-charcoal">{user.name}</strong>
                 </span>
-                <span className="text-olive font-medium">Verified Account</span>
+                <span className="text-olive font-medium">Verified</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmitOrder} className="space-y-4">
+            <form onSubmit={handleSubmitOrder} className="space-y-3 sm:space-y-4">
               <div>
                 <label className="block text-xs font-medium text-charcoal mb-1">Recipient Name</label>
                 <input
@@ -203,7 +207,7 @@ export const CheckoutModal = () => {
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="e.g. Eleanor Vance"
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-sm text-charcoal focus:bg-white transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-base sm:text-sm text-charcoal focus:bg-white transition-colors"
                 />
               </div>
 
@@ -215,7 +219,7 @@ export const CheckoutModal = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="e.g. +1 (555) 349-2810"
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-sm text-charcoal focus:bg-white transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-base sm:text-sm text-charcoal focus:bg-white transition-colors"
                 />
               </div>
 
@@ -227,28 +231,28 @@ export const CheckoutModal = () => {
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
                   placeholder="Street address, building, apartment/suite number..."
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-sm text-charcoal focus:bg-white transition-colors resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-base sm:text-sm text-charcoal focus:bg-white transition-colors resize-none"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-medium text-charcoal mb-1">
-                  Kitchen Notes & Dietary Preferences (Optional)
+                  Kitchen Notes (Optional)
                 </label>
                 <input
                   type="text"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="e.g. Extra napkins, sauce on the side, ring doorbell..."
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-sm text-charcoal focus:bg-white transition-colors"
+                  placeholder="e.g. Extra napkins, sauce on side..."
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-soft-border bg-base/40 text-base sm:text-sm text-charcoal focus:bg-white transition-colors"
                 />
               </div>
 
-              {/* Order total review */}
-              <div className="pt-4 border-t border-soft-border flex items-center justify-between">
+              {/* Order total & confirmation button */}
+              <div className="pt-3 sm:pt-4 border-t border-soft-border flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-xs text-warm-gray block">Total Amount</span>
-                  <span className="font-serif text-xl font-bold text-terracotta">
+                  <span className="text-[10px] sm:text-xs text-warm-gray block">Total Due</span>
+                  <span className="font-serif text-lg sm:text-xl font-bold text-terracotta">
                     ${subtotal.toFixed(2)}
                   </span>
                 </div>
@@ -256,13 +260,13 @@ export const CheckoutModal = () => {
                 <button
                   type="submit"
                   disabled={loading || !user}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-terracotta hover:bg-terracotta-hover disabled:bg-stone-300 text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-lifted hover:scale-[1.01]"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 sm:px-6 py-3 rounded-xl bg-terracotta hover:bg-terracotta-hover active:scale-98 disabled:bg-stone-300 text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-lifted min-h-[46px]"
                 >
                   {loading ? (
                     <span>Placing Order...</span>
                   ) : (
                     <>
-                      <span>Confirm & Place Order</span>
+                      <span>Place Order</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}

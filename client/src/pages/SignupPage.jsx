@@ -47,14 +47,14 @@ export const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 text-left">
-      <div className="max-w-md w-full bg-surface rounded-2xl border border-soft-border p-8 sm:p-10 shadow-lifted animate-scale-in">
+    <div className="min-h-[75vh] sm:min-h-[80vh] flex items-center justify-center px-4 py-8 sm:py-12 text-left">
+      <div className="max-w-md w-full bg-surface rounded-2xl border border-soft-border p-5 sm:p-10 shadow-lifted animate-scale-in">
         {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">
+        <div className="text-center mb-6 sm:mb-8">
+          <span className="text-[10px] sm:text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">
             New Guest
           </span>
-          <h1 className="font-serif text-3xl font-medium text-charcoal">Create an Account</h1>
+          <h1 className="font-serif text-2xl sm:text-3xl font-medium text-charcoal">Create an Account</h1>
           <p className="text-xs sm:text-sm text-warm-gray mt-1 font-light">
             Save your delivery details and view your dining order history.
           </p>
@@ -62,13 +62,13 @@ export const SignupPage = () => {
 
         {/* Error Alert */}
         {errorMessage && (
-          <div className="mb-6 p-3.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
+          <div className="mb-4 sm:mb-6 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
             {errorMessage}
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
           <div>
             <label className="block text-xs font-medium text-charcoal mb-1">Full Name</label>
             <div className="relative">
@@ -79,7 +79,7 @@ export const SignupPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Eleanor Vance"
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
               />
             </div>
           </div>
@@ -94,7 +94,7 @@ export const SignupPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
               />
             </div>
           </div>
@@ -109,7 +109,7 @@ export const SignupPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export const SignupPage = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 (555) 000-0000"
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ export const SignupPage = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Street address, apartment, suite..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors resize-none"
+                className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white focus:border-terracotta transition-colors resize-none"
               />
             </div>
           </div>
@@ -145,7 +145,7 @@ export const SignupPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-terracotta hover:bg-terracotta-hover text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm hover:scale-[1.01] mt-2 disabled:bg-stone-400"
+            className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-terracotta hover:bg-terracotta-hover active:scale-98 text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm mt-1 disabled:bg-stone-400 min-h-[46px]"
           >
             {loading ? <span>Creating Account...</span> : <span>Complete Registration</span>}
             <ArrowRight className="w-4 h-4" />

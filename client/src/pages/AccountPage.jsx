@@ -57,14 +57,14 @@ export const AccountPage = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-left">
+    <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 text-left">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-8 mb-10 border-b border-soft-border gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 sm:pb-8 mb-6 sm:mb-10 border-b border-soft-border gap-4">
         <div>
-          <span className="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">
+          <span className="text-[10px] sm:text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">
             Guest Portal
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-normal text-charcoal">
+          <h1 className="font-serif text-2xl sm:text-4xl font-normal text-charcoal">
             Welcome, {user.name}
           </h1>
           <p className="text-xs sm:text-sm text-warm-gray font-light mt-1">
@@ -72,11 +72,11 @@ export const AccountPage = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           {isAdmin && (
             <button
               onClick={() => navigate('/admin')}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-charcoal text-white text-xs font-medium hover:bg-charcoal/90 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-charcoal text-white text-xs font-medium hover:bg-charcoal/90 active:scale-95 transition-all shadow-sm"
             >
               <ShieldCheck className="w-4 h-4 text-gold" />
               <span>Admin Dashboard</span>
@@ -85,7 +85,7 @@ export const AccountPage = () => {
 
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-soft-border bg-surface hover:bg-red-50 hover:text-red-700 hover:border-red-200 text-xs font-medium text-warm-gray transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-soft-border bg-surface hover:bg-red-50 hover:text-red-700 hover:border-red-200 active:scale-95 text-xs font-medium text-warm-gray transition-all"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
@@ -93,16 +93,18 @@ export const AccountPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10">
         {/* Left Col: Edit Profile */}
         <div className="lg:col-span-5">
-          <div className="bg-surface rounded-2xl border border-soft-border p-6 sm:p-7 shadow-subtle">
-            <h2 className="font-serif text-xl font-medium text-charcoal mb-4">Saved Contact Details</h2>
-            <p className="text-xs text-warm-gray mb-6 font-light">
+          <div className="bg-surface rounded-2xl border border-soft-border p-5 sm:p-7 shadow-subtle">
+            <h2 className="font-serif text-lg sm:text-xl font-medium text-charcoal mb-2 sm:mb-3">
+              Saved Contact Details
+            </h2>
+            <p className="text-xs text-warm-gray mb-5 font-light">
               These details will automatically populate your order confirmation for rapid ordering.
             </p>
 
-            <form onSubmit={handleUpdateProfile} className="space-y-4">
+            <form onSubmit={handleUpdateProfile} className="space-y-3.5">
               <div>
                 <label className="block text-xs font-medium text-charcoal mb-1">Full Name</label>
                 <div className="relative">
@@ -112,7 +114,7 @@ export const AccountPage = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white transition-colors"
                   />
                 </div>
               </div>
@@ -125,7 +127,7 @@ export const AccountPage = () => {
                     type="email"
                     disabled
                     value={user.email}
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-sm text-charcoal bg-stone-100 cursor-not-allowed opacity-75"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-stone-100 cursor-not-allowed opacity-75"
                   />
                 </div>
               </div>
@@ -139,7 +141,7 @@ export const AccountPage = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white transition-colors"
                   />
                 </div>
               </div>
@@ -149,11 +151,11 @@ export const AccountPage = () => {
                 <div className="relative">
                   <MapPin className="absolute left-3.5 top-3 w-4 h-4 text-warm-gray" />
                   <textarea
-                    rows={3}
+                    rows={2}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter street, unit/apt number..."
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-sm text-charcoal bg-base/40 focus:bg-white transition-colors resize-none"
+                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-soft-border text-base sm:text-sm text-charcoal bg-base/40 focus:bg-white transition-colors resize-none"
                   />
                 </div>
               </div>
@@ -161,7 +163,7 @@ export const AccountPage = () => {
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-lg bg-terracotta hover:bg-terracotta-hover text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-terracotta hover:bg-terracotta-hover active:scale-98 text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm min-h-[44px]"
               >
                 {saving ? <span>Saving...</span> : <span>Save Details</span>}
               </button>
@@ -171,53 +173,54 @@ export const AccountPage = () => {
 
         {/* Right Col: Order History */}
         <div className="lg:col-span-7">
-          <div className="bg-surface rounded-2xl border border-soft-border p-6 sm:p-7 shadow-subtle">
-            <h2 className="font-serif text-xl font-medium text-charcoal mb-4">Past Dining Orders</h2>
+          <div className="bg-surface rounded-2xl border border-soft-border p-5 sm:p-7 shadow-subtle">
+            <h2 className="font-serif text-lg sm:text-xl font-medium text-charcoal mb-4">
+              Past Dining Orders
+            </h2>
 
             {loadingOrders ? (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {[1, 2].map((n) => (
                   <div key={n} className="h-28 rounded-xl bg-stone-100 skeleton-shimmer" />
                 ))}
               </div>
             ) : orders.length === 0 ? (
-              <div className="text-center py-12 text-warm-gray space-y-3">
-                <PackageCheck className="w-12 h-12 mx-auto text-warm-gray/40" />
-                <h3 className="font-serif text-lg text-charcoal">No orders yet</h3>
-                <p className="text-xs max-w-xs mx-auto">
+              <div className="text-center py-10 sm:py-12 text-warm-gray space-y-3">
+                <PackageCheck className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-warm-gray/40" />
+                <h3 className="font-serif text-base sm:text-lg text-charcoal">No orders yet</h3>
+                <p className="text-xs max-w-xs mx-auto font-light">
                   You haven't placed any dining orders with Food Court yet.
                 </p>
                 <button
                   onClick={() => navigate('/menu')}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-terracotta text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm hover:scale-105 mt-2"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-terracotta text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm active:scale-95 mt-2"
                 >
                   Order From Menu
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {orders.map((order) => (
                   <div
                     key={order._id}
-                    className="p-4 rounded-xl border border-soft-border bg-base/30 space-y-3"
+                    className="p-4 rounded-xl border border-soft-border bg-base/30 space-y-2.5"
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs font-bold text-charcoal">
                           #{order._id.slice(-6).toUpperCase()}
                         </span>
-                        <span className="text-[11px] text-warm-gray flex items-center gap-1">
+                        <span className="text-[10px] sm:text-[11px] text-warm-gray flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           {new Date(order.createdAt).toLocaleDateString(undefined, {
                             month: 'short',
                             day: 'numeric',
-                            year: 'numeric',
                           })}
                         </span>
                       </div>
 
                       <span
-                        className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
+                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${
                           order.status === 'CONFIRMED' || order.status === 'DELIVERED'
                             ? 'bg-olive/15 text-olive border border-olive/30'
                             : 'bg-gold/15 text-gold border border-gold/30'
@@ -230,8 +233,8 @@ export const AccountPage = () => {
                     {/* Items snapshot */}
                     <div className="divide-y divide-soft-border/50 text-xs">
                       {order.items.map((item, idx) => (
-                        <div key={idx} className="py-1.5 flex justify-between text-charcoal">
-                          <span>
+                        <div key={idx} className="py-1 flex justify-between text-charcoal">
+                          <span className="truncate max-w-[200px] sm:max-w-none">
                             {item.quantity} × {item.name}
                           </span>
                           <span className="font-medium text-warm-gray">
@@ -242,9 +245,11 @@ export const AccountPage = () => {
                     </div>
 
                     <div className="pt-2 border-t border-soft-border/70 flex justify-between items-center text-xs">
-                      <span className="text-warm-gray">Delivery: {order.deliveryAddress}</span>
+                      <span className="text-warm-gray truncate max-w-[180px] sm:max-w-xs text-[11px]">
+                        {order.deliveryAddress}
+                      </span>
                       <span className="font-serif text-sm font-bold text-terracotta">
-                        Total: ${order.totalPrice.toFixed(2)}
+                        ${order.totalPrice.toFixed(2)}
                       </span>
                     </div>
                   </div>
