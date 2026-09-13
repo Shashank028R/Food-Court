@@ -1,9 +1,20 @@
-const BASE_URL = '/api';
+const API_ENV_URL = import.meta.env.VITE_API_URL || '';
+const BASE_URL = API_ENV_URL
+  ? (API_ENV_URL.endsWith('/api') ? API_ENV_URL : `${API_ENV_URL}/api`)
+  : '/api';
+
+const TOKEN_KEY = 'food_court_jwt';
 
 async function request(endpoint, options = {}) {
   const defaultHeaders = {
     'Content-Type': 'application/json',
   };
+
+  // Attach Bearer token if available
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token) {
+    defaultHeaders['Authorization'] = `Bearer ${token}`;
+  }
 
   const isFormData = options.body instanceof FormData;
   if (isFormData) {
@@ -12,7 +23,9 @@ async function request(endpoint, options = {}) {
 
   const config = {
     ...options,
-    headers: isFormData ? options.headers : { ...defaultHeaders, ...options.headers },
+    headers: isFormData
+      ? { ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers }
+      : { ...defaultHeaders, ...options.headers },
     credentials: 'include', // Include httpOnly cookies
   };
 
@@ -20,6 +33,9 @@ async function request(endpoint, options = {}) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem(TOKEN_KEY);
+    }
     const error = new Error(data.message || `Request failed with status ${response.status}`);
     error.status = response.status;
     error.data = data;
@@ -59,9 +75,24 @@ export const api = {
   deleteFoodItem: (id) => request(`/food-items/${id}`, { method: 'DELETE' }),
 
   // Auth
-  login: (credentials) => request('/auth/login', { method: 'POST', body: JSON.stringify(credentials) }),
-  signup: (userData) => request('/auth/signup', { method: 'POST', body: JSON.stringify(userData) }),
-  logout: () => request('/auth/logout', { method: 'POST' }),
+  login: async (credentials) => {
+    const data = await request('/auth/login', { method: 'POST', body: JSON.stringify(credentials) });
+    if (data.token) {
+      localStorage.setItem(TOKEN_KEY, data.token);
+    }
+    return data;
+  },
+  signup: async (userData) => {
+    const data = await request('/auth/signup', { method: 'POST', body: JSON.stringify(userData) });
+    if (data.token) {
+      localStorage.setItem(TOKEN_KEY, data.token);
+    }
+    return data;
+  },
+  logout: async () => {
+    localStorage.removeItem(TOKEN_KEY);
+    return request('/auth/logout', { method: 'POST' });
+  },
   getMe: () => request('/auth/me'),
   updateProfile: (data) => request('/auth/me', { method: 'PUT', body: JSON.stringify(data) }),
 
